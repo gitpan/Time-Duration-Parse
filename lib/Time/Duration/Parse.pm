@@ -1,7 +1,8 @@
 package Time::Duration::Parse;
 
 use strict;
-our $VERSION = '0.06';
+use warnings;
+our $VERSION = '0.07';
 
 use Carp;
 use Exporter::Lite;
@@ -87,6 +88,8 @@ and is roundtrip safe. So, the following is always true.
 Parses duration string and returns seconds. When it encounters an
 error in a given string, it dies an exception saying "Unknown
 timespec: blah blah blah". This function is exported by default.
+
+=back
 
 =head1 AUTHOR
 

@@ -2,7 +2,7 @@
 
 package Time::Duration;
 # POD is at the end.
-$VERSION = '1.06';
+$VERSION = '1.1';
 require Exporter;
 @ISA = ('Exporter');
 @EXPORT = qw( later later_exact earlier earlier_exact
@@ -15,16 +15,19 @@ require Exporter;
 use strict;
 use constant DEBUG => 0;
 
+our $MILLISECOND = 0;
+
 # ALL SUBS ARE PURE FUNCTIONS
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 sub concise ($) {
   my $string = $_[0];
-  #print "in : $string\n";
+  DEBUG and print "in : $string\n";
   $string =~ tr/,//d;
   $string =~ s/\band\b//;
   $string =~ s/\b(year|day|hour|minute|second)s?\b/substr($1,0,1)/eg;
+  $string =~ s/\b(millisecond)s?\b/ms/g;
   $string =~ s/\s*(\d+)\s*/$1/g;
   return $string;
 }
@@ -67,21 +70,21 @@ sub duration {
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 sub interval_exact {
-  my $span = $_[0];                      # interval, in seconds
-                                         # precision is ignored
-  my $direction = ($span <= -1) ? $_[2]  # what a neg number gets
-                : ($span >=  1) ? $_[3]  # what a pos number gets
-                : return          $_[4]; # what zero gets
+  my $span = $_[0];                    # interval, in seconds
+                                       # precision is ignored
+  my $direction = ($span < 0) ? $_[2]  # what a neg number gets
+                : ($span > 0) ? $_[3]  # what a pos number gets
+                : return        $_[4]; # what zero gets
   _render($direction,
           _separate($span));
 }
 
 sub interval {
-  my $span = $_[0];                      # interval, in seconds
-  my $precision = int($_[1] || 0) || 2;  # precision (default: 2)
-  my $direction = ($span <= -1) ? $_[2]  # what a neg number gets
-                : ($span >=  1) ? $_[3]  # what a pos number gets
-                : return          $_[4]; # what zero gets
+  my $span = $_[0];                     # interval, in seconds
+  my $precision = int($_[1] || 0) || 2; # precision (default: 2)
+  my $direction = ($span < 0) ? $_[2]   # what a neg number gets
+                : ($span > 0) ? $_[3]   # what a pos number gets
+                : return        $_[4];  # what zero gets
   _render($direction,
           _approximate($precision,
                        _separate($span)));
@@ -124,6 +127,13 @@ sub _separate {
   $remainder -= $this * 60;
   
   push @wheel, ['second', int($remainder), 60];
+
+	# Thanks to Steven Haryanto (http://search.cpan.org/~sharyanto/) for the basis of this change.
+	if ($MILLISECOND) {
+		$remainder -= int($remainder);
+		push @wheel, ['millisecond', sprintf("%0.f", $remainder * 1000), 1000];
+	}
+
   return @wheel;
 }
 
@@ -222,6 +232,6 @@ so "1y 1d 0h 59m 50s", N=3, so you round at minutes to "1y 1d 0h 60m 0s",
 but that's not improperly expressed, so you loop around and get
 "1y 1d 1h 0m 0s", which is short enough, and is properly expressed.
 
-#line 444
+#line 471
 
 
