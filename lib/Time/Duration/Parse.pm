@@ -2,7 +2,7 @@ package Time::Duration::Parse;
 
 use strict;
 use warnings;
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 use Carp;
 use Exporter::Lite;
@@ -94,6 +94,25 @@ timespec: blah blah blah". This function is exported by default.
 
 =back
 
+=head1 SEE ALSO
+
+L<Time::Duration::Parse::More> has the same interface as this module,
+but supports more expressions and memoization.
+
+L<Time::Duration> can be used for the reverse of this module:
+given a number of seconds it will provide an English description of
+the duration.
+
+L<Time::Duration::Object> provides an OO interface to L<Time::Duration>.
+
+L<Time::Duration::LocaleObject> provides an OO interface to the
+C<Time::Duration::??> modules, which provide language-specific versions
+of L<Time::Duration>.
+
+L<Date::Manip>,
+L<DateTime::Format::Duration>,
+L<http://use.perl.org/~miyagawa/journal/30310>
+
 =head1 REPOSITORY
 
 L<https://github.com/neilbowers/Time-Duration-Parse>
@@ -109,14 +128,5 @@ it under the same terms as Perl itself.
 
 Some internal code is taken from Cache and Cache::Cache modules on
 CPAN.
-
-=head1 SEE ALSO
-
-L<Time::Duration::Parse::More> has the same interface as this module,
-but supports more expressions and memoization.
-
-L<Date::Manip>,
-L<DateTime::Format::Duration>,
-L<http://use.perl.org/~miyagawa/journal/30310>
 
 =cut
