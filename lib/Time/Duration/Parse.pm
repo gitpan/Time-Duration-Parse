@@ -2,7 +2,7 @@ package Time::Duration::Parse;
 
 use strict;
 use warnings;
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 use Carp;
 use Exporter::Lite;
@@ -20,6 +20,9 @@ my %Units = ( map(($_,             1), qw(s second seconds sec secs)),
 
 sub parse_duration {
     my $timespec = shift;
+
+    # You can have an optional leading '+', which has no effect
+    $timespec =~ s/^\s*\+\s*//;
 
     # Treat a plain number as a number of seconds (and parse it later)
     if ($timespec =~ /^\s*(-?\d+(?:[.,]\d+)?)\s*$/) {
@@ -91,6 +94,10 @@ timespec: blah blah blah". This function is exported by default.
 
 =back
 
+=head1 REPOSITORY
+
+L<https://github.com/neilbowers/Time-Duration-Parse>
+
 =head1 AUTHOR
 
 Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
@@ -105,6 +112,11 @@ CPAN.
 
 =head1 SEE ALSO
 
-L<Date::Manip>, L<DateTime::Format::Duration>, L<http://use.perl.org/~miyagawa/journal/30310>
+L<Time::Duration::Parse::More> has the same interface as this module,
+but supports more expressions and memoization.
+
+L<Date::Manip>,
+L<DateTime::Format::Duration>,
+L<http://use.perl.org/~miyagawa/journal/30310>
 
 =cut
