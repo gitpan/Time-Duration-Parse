@@ -3,25 +3,23 @@ abstract: 'Parse string that represents time duration'
 author:
   - 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>'
 build_requires:
-  ExtUtils::MakeMaker: 6.59
+  Test::More: '0.88'
+  Time::Duration: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.59
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
+  ExtUtils::MakeMaker: '6.30'
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Time-Duration-Parse
-no_index:
-  directory:
-    - inc
-    - t
 requires:
-  Exporter::Lite: '0.02'
-  perl: 5.6.0
+  Carp: '0'
+  Exporter::Lite: '0'
+  strict: '0'
+  warnings: '0'
 resources:
-  license: http://dev.perl.org/licenses/
-  repository: https://github.com/neilbowers/Time-Duration-Parse
-version: '0.09'
+  homepage: https://github.com/neilbowers/Time-Duration-Parse
+  repository: https://github.com/neilbowers/Time-Duration-Parse.git
+version: '0.10'
