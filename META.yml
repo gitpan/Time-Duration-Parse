@@ -17,9 +17,10 @@ name: Time-Duration-Parse
 requires:
   Carp: '0'
   Exporter::Lite: '0'
+  perl: '5.006'
   strict: '0'
   warnings: '0'
 resources:
   homepage: https://github.com/neilbowers/Time-Duration-Parse
   repository: https://github.com/neilbowers/Time-Duration-Parse.git
-version: '0.10'
+version: '0.11'
